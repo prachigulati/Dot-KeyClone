@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div style="background: linear-gradient(to right, #f9d, #ccf); text-align:center; font-size:18px;">
+    <img src="https://www.dotandkey.com/cdn/shop/files/timer-web_0da49c9c-543a-4bba-93fe-161b0091848b.png?v=1742819360&width=2000" style="max-width: 500px;">
+</div>
+<img src="{% static 'assets/bestsellers.jpg' %}" style="width: 100%;">
+<section style="background-color: white;">
+<center><div style="font-weight: bold;font-size: 40px;margin-top: 50px; ">Bestsellers</div></center>
+{% for product in products %}
+<div style="width: 250px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee; background: #fff;">
+    <div style="background: #ff5c5c; color: white; padding: 4px 10px; font-size: 12px; font-weight: bold;">
+        {{product.tag}} ⭐
+    </div>
+    <div style="position: relative;">
+        <img src="{{ product.image.url}}" style="width: 100%; display: block;">
+    </div>
+    <div style="padding: 12px;">
+        <div style="font-weight: 600; font-size: 16px;">{{ product.name }}</div><br>
+        <div style="font-size: 12px; color: #555; margin-top: 4px;">✔ {{ product.description}}</div><br>
+        <div style="margin: 6px 0;">
+        <span style="background: #4CAF50; color: white; font-size: 14px; padding: 2px 6px; border-radius: 4px;">{{ product.rating }}</span>
+        <span style="font-size: 12px; color: #555;">{{product.rating_next}}</span>
+        </div><br><br>
+        <div style="margin: 8px 0;">
+        <button style="background: white; border: 1px solid black; padding: 4px 10px; border-radius: 4px; font-size: 14px;">{{ product.weight }}</button>
+        </div><br>
+        {% if product.is_sale == True %}
+        <div style="background: linear-gradient(to right, rgb(249, 154, 219), white); font-size: 16px;">Flat {{sale_percentage}}% OFF</div><br>
+        {% endif %}
+        <div style="font-size: 18px; font-weight: bold; margin-top: 8px;">₹{{product.price}}</div>
+        <button style="width: 100%; margin-top: 10px; background: black; color: white; padding: 20px; border: none; border-radius: 8px; font-weight: bold;font-size: 18px;" type="button" value="{{ product.id }}" >
+        ADD TO CART
+        </button>
+    </div>
+</div>
+{% endfor %}
+
+</section>
+{% endblock %}
