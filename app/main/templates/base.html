@@ -135,6 +135,26 @@ padding: 20px;
 {% block content %}
 {% endblock %}
 
+
+
+
+<!-- offcanvas -->
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Your cart</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="cart-items-container">
+        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+
 <!--Footer-->
 <div class="footer">
 <div class="footer-column">
@@ -179,9 +199,6 @@ padding: 20px;
 </div>
 </div>
 
-<!-- <div class="copyright">
-&copy; 2025 Dot & Key Wellness Pvt. Ltd. All Rights Reserved.
-</div> -->
 <script>
 function showContent(sectionId) {
     document.querySelectorAll('.content > div').forEach(section => {
@@ -190,5 +207,23 @@ function showContent(sectionId) {
     document.getElementById(sectionId).classList.remove('hidden');
 }
 </script>
+
+
+<script>
+    function refreshCart() {
+        fetch("{% url 'cart_offcanvas' %}")
+            .then(res => res.text())
+            .then(data => {
+                // Update the entire cart sidebar body
+                document.querySelector(".offcanvas-body").innerHTML = data;
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        refreshCart(); // Load cart immediately when page loads
+    });
+</script>
+
+
 </body>
 </html>
